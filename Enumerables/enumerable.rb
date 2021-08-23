@@ -76,14 +76,34 @@ class Array
         end
     end
 
+    def my_join(sep = '')
+        str = ''
+        self.my_each do |ele|
+            str += ele
+            unless ele == self[-1]
+                str += sep
+            end
+        end
+        str
+    end
 
-    
-
+    def my_reverse
+        arr = []
+        i = self.length-1
+        while i >= 0
+            arr << self[i]
+            i -= 1
+        end
+        arr
+    end
 end
 
-a = [ "a", "b", "c", "d" ]
-p a.my_join         # => "abcd"
-p a.my_join("$")    # => "a$b$c$d"
+# p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
+# p [ 1 ].my_reverse               #=> [1]
+
+# a = [ "a", "b", "c", "d" ]
+# p a.my_join         # => "abcd"
+# p a.my_join("$")    # => "a$b$c$d"
 
 # a = [ "a", "b", "c", "d" ]
 # p a.my_rotate         #=> ["b", "c", "d", "a"]
