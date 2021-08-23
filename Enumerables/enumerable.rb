@@ -77,6 +77,10 @@ class Array
 
     end
 
+    def random_method(test)
+
+    end
+
     
 
 end
