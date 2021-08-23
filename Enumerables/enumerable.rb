@@ -68,13 +68,25 @@ class Array
 
     def my_rotate(num = 1)
         if num < 0 
-            self.shift
+            (num.abs).times {self.unshift(self.pop)} 
             return self
         else
-            return num.times {self.unshift(self[-1])}
+            num.times { self << self.shift }
+            return self
         end
 
 
+    end
+
+    def my_join(sep = '')
+        str = ''
+        self.my_each do |ele|
+            str += ele
+            unless ele == self[-1]
+                str += sep
+            end
+        end
+        str
     end
 
     def random_method(test)
@@ -86,9 +98,13 @@ class Array
 end
 
 a = [ "a", "b", "c", "d" ]
+p a.my_join         # => "abcd"
+p a.my_join("$")    # => "a$b$c$d"
+
+# a = [ "a", "b", "c", "d" ]
 # p a.my_rotate         #=> ["b", "c", "d", "a"]
 # p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
-p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
+# p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
 # p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
 
 
