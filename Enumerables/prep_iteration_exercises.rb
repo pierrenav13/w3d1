@@ -116,16 +116,32 @@ end
 # words).
 
 def substrings(string)
+  array = []
+
+  (0..string.length - 1).each do |idx1|
+    (idx1..string.length - 1).to_a.each do |idx2|
+      array << string[idx1..idx2]
+    end
+  end
+  array
 end
 
+# p substrings("cat")
+
 def subwords(word, dictionary)
+  substrings(word).select do |sub|
+    dictionary.include?(sub)
+  end
 end
+
+# p subwords('cat', ['at', 'cat', 'a'])
 
 # ### Doubler
 # Write a `doubler` method that takes an array of integers and returns an
 # array with the original elements multiplied by two.
 
 def doubler(array)
+  array.map { |num| num * 2 }
 end
 
 # ### My Each
@@ -153,6 +169,13 @@ end
 
 class Array
   def my_each(&prc)
+    i = 0
+
+    while i < self.length
+      prc.call(self[i])
+      i += 1
+    end
+    self
   end
 end
 
@@ -171,14 +194,35 @@ end
 
 class Array
   def my_map(&prc)
+    arr = []
+    self.my_each do |ele|
+      arr << prc.call(ele)
+    end
+    arr
   end
 
   def my_select(&prc)
+    arr = []
+    self.my_each do |ele|
+      if prc.call(ele)
+        arr << ele
+      end
+    end
+    arr
   end
 
   def my_inject(&blk)
+    x = 0
+    self.my_each do |ele|
+      x = blk.call(x, ele)
+    end
+    x
   end
+
 end
+
+# a = [1, 2, 3, 4]
+# p a.my_inject { |sum, num| sum + num }
 
 # ### Concatenate
 # Create a method that takes in an `Array` of `String`s and uses `inject`
@@ -190,4 +234,9 @@ end
 # ```
 
 def concatenate(strings)
+  strings.inject do |accum, ele|
+    accum + ele
+  end
 end
+
+# p concatenate(["Yay ", "for ", "strings!"])
