@@ -68,19 +68,14 @@ class Array
 
     def my_rotate(num=1)
         if num < 0 
-            (num.abs).times {self.unshift(self.pop)} 
+            (num.abs).times { self.unshift(self.pop) } 
             return self
-        else
+        elsif num > 0
             num.times { self << self.shift }
             return self
         end
-
-
     end
 
-    def random_method(test)
-
-    end
 
     
 
